@@ -179,7 +179,7 @@ module.exports = msgHandler = async (bocchi = new Client(), message) => {
                 })
             }
         }
-        if (isRegistered === false &&isGroupMsg === false &&message.type === 'chat') {
+        if (isMedia === false&&isImage=== false&&isCmd=== false&&isRegistered === false &&isGroupMsg === false &&message.type === 'chat') {
                         bocchi.reply(from, ind.notRegistered(), id)
             }
         // Simi-simi function
@@ -244,13 +244,12 @@ module.exports = msgHandler = async (bocchi = new Client(), message) => {
             case 'register':
                 if (isRegistered) return await bocchi.reply(from, ind.registeredAlready(), id)
                 if (isGroupMsg) return await bocchi.reply(from, ind.pcOnly(), id)
-                if (!q.includes('|')) return await bocchi.reply(from, ind.wrongFormat(), id)
-                const namaUser = q.substring(0, q.indexOf('|') - 1)
-                const umurUser = q.substring(q.lastIndexOf('|') + 2)
+                if (!q) return await bocchi.reply(from, ind.wrongFormat(), id)
+                const namaUser = q.substring(q.indexOf)
                 const serialUser = createSerial(20)
-                register.addRegisteredUser(sender.id, namaUser, umurUser, time, serialUser, _registered)
-                await bocchi.reply(from, ind.registered(namaUser, umurUser, sender.id, time, serialUser), id)
-                console.log(color('[REGISTER]'), color(time, 'yellow'), 'Name:', color(namaUser, 'cyan'), 'Age:', color(umurUser, 'cyan'), 'Serial:', color(serialUser, 'cyan'))
+                register.addRegisteredUser(sender.id, namaUser, time, serialUser, _registered)
+                await bocchi.reply(from, ind.registered(namaUser, sender.id, time, serialUser), id)
+                console.log(color('[REGISTER]'), color(time, 'yellow'), 'Name:', color(namaUser, 'cyan'), 'Serial:', color(serialUser, 'cyan'))
             break
 
             // Level [BETA] by Slavyan
@@ -1287,10 +1286,9 @@ module.exports = msgHandler = async (bocchi = new Client(), message) => {
                 const serials = args[0]
                 if (register.checkRegisteredUserFromSerial(serials, _registered)) {
                     const name = register.getRegisteredNameFromSerial(serials, _registered)
-                    const age = register.getRegisteredAgeFromSerial(serials, _registered)
                     const time = register.getRegisteredTimeFromSerial(serials, _registered)
                     const id = register.getRegisteredIdFromSerial(serials, _registered)
-                    await bocchi.sendText(from, ind.registeredFound(name, age, time, serials, id))
+                    await bocchi.sendText(from, ind.registeredFound(name, time, serials, id))
                 } else {
                     await bocchi.sendText(from, ind.registeredNotFound(serials))
                 }
@@ -1328,9 +1326,8 @@ module.exports = msgHandler = async (bocchi = new Client(), message) => {
                     nsfw.xvid(q)
                     .then(async({ mp4 }) => {
                                 await bocchi.sendFileFromUrl(from, mp4, '', '', id)
-                        })
-                        .catch(async(err) => {
-                                   console.log(err)
+                        }).catch(async(err) => {
+                                   console.error(err)
                                    await bocchi.reply(from, 'Gagal, Maksimal video size adalah *20MB*!', id)
                         })
                     break
@@ -1964,9 +1961,6 @@ y`
             break
 
             // Sticker
-            
-            
-            
             case 'sticker':
                 case 'stiker':
                     if (!isRegistered) return await bocchi.reply(from, ind.notRegistered(), id)
@@ -1981,7 +1975,8 @@ y`
                                 console.log(`Sticker processed for ${processTime(t, moment())} seconds`)
                             })
                     } else if (args[0] === 'nobg') {
-                            if (isMedia && isImage || isQuotedImage) {
+                            if (isMedia && isImage || isQuotedImage)
+                            {
                                 await bocchi.reply(from, ind.wait(), id)
                                 var mediaData = await decryptMedia(message, uaOverride)
                                 var imageBase64 = `data:${mimetype};base64,${mediaData.toString('base64')}`
@@ -2015,7 +2010,7 @@ y`
                         await bocchi.sendMp4AsSticker(from, videoBase64, { fps: 24, startTime: `00:00:00.0`, endTime : `00:00:05.0`, loop: 0 })
                             .then(async () => {
                                 console.log(`Sticker processed for ${processTime(t, moment())} seconds`)
-                                await bocchi.sendText(from, ind.ok())
+                                await bocchi.sendText(from, ""())
                             })
                     } catch (err) {
                         console.error(err)
@@ -2029,7 +2024,7 @@ y`
                         await bocchi.sendMp4AsSticker(from, videoBase64, { fps: 30, startTime: `00:00:00.0`, endTime : `00:00:03.0`, loop: 0 })
                             .then(async () => {
                                 console.log(`Sticker processed for ${processTime(t, moment())} seconds`)
-                                await bocchi.sendText(from, ind.ok())
+                                await bocchi.sendText(from, ""())
                             })
                     } catch (err) {
                         console.error(err)
@@ -2052,7 +2047,7 @@ y`
                             await bocchi.sendStickerfromUrl(from, result.imgUrl)
                                 .then(async () => {
                                     console.log(`Sticker processed for ${processTime(t, moment())} seconds`)
-                                    await bocchi.sendText(from, ind.ok())
+                                    await bocchi.sendText(from, ""())
                                 })
                         })
                         .catch(async (err) => {
@@ -2077,7 +2072,7 @@ y`
                             await bocchi.sendStickerfromUrl(from, result.imgUrl)
                                 .then(async () => {
                                     console.log(`Sticker processed for ${processTime(t, moment())} seconds`)
-                                    await bocchi.sendText(from, ind.ok())
+                                    await bocchi.sendText(from, ""())
                                 })
                         })
                         .catch(async (err) => {
@@ -2126,7 +2121,7 @@ y`
                 console.log('Creating emoji code for =>', emoji)
                 await bocchi.sendStickerfromUrl(from, `https://api.vhtear.com/emojitopng?code=${emoji}&apikey=${config.vhtear}`)
                     .then(async () => {
-                        await bocchi.reply(from, ind.ok(), id)
+                        await bocchi.reply(from, ""(), id)
                         console.log(`Sticker processed for ${processTime(t, moment())} seconds`)
                     })
                     .catch(async (err) => {

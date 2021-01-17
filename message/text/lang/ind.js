@@ -6,7 +6,7 @@ exports.wait = () => {
 }
 
 exports.ok = () => {
-    return `Ok ~`
+    return `Done~`
 }
 
 exports.wrongFormat = () => {
@@ -18,11 +18,11 @@ exports.emptyMess = () => {
 }
 
 exports.cmdNotFound = (cmd) => {
-    return `Command *${prefix}${cmd}* tidak ditemukan!`
+    return `Command *${prefix}${cmd}* tidak ditemukan! mohon periksa kembali di *${prefix}menu*.`
 }
 
 exports.blocked = (ownerNumber) => {
-    return `Bot tidak menerima panggilan. Karena kamu telah melanggar rules, maka kamu telah diblok!\n\nHarap hubungi owner: wa.me/${ownerNumber.replace('@c.us', '')}`
+    return `Bot tidak menerima panggilan. Karena kamu telah melanggar rules, maka kamu telah diblok!}`
 }
 
 exports.ownerOnly = () => {
@@ -58,7 +58,7 @@ exports.nsfwAlready = () => {
 }
 
 exports.addedGroup = (chat) => {
-    return `Terima kasih telah mengundangku, para member *${chat.contact.name}*!\n\nSilakan register dengan cara ketik:\n*${prefix}register* nama | umur`
+    return `Terima kasih telah mengundangku, para member *${chat.contact.name}*!\n\nSilakan register dengan cara ketik:\n*${prefix}register* nama `
 }
 
 exports.nhFalse = () => {
@@ -96,11 +96,11 @@ exports.ytFound = (result) => {
 }
 
 exports.notRegistered = () => {
-    return `Kamu belum terdaftar di database!\n\nSilakan register dengan format:\n*${prefix}register* nama | umur\n\nNote:\nHarap save nomor ku agar bisa mendapatkan serial!!`
+    return `Kamu belum terdaftar di database!\n\nSilakan register dengan format:\n*${prefix}register* nama \n\nNote:\nHarap save nomor ku agar bisa mendapatkan serial!!`
 }
 
-exports.registered = (name, age, userId, time, serial) => {
-    return `*「 REGISTRATION 」*\n\nAkun kamu telah terdaftar dengan data:\n\n➸ *Nama*: ${name}\n➸ *Umur*: ${age}\n➸ *ID*: ${userId}\n➸ *Waktu pendaftaran*: ${time}\n➸ *Serial*: ${serial}\n\nCatatan:\nJangan pernah menyebarkan data *serial* ke pada siapapun!\n\nKetik *${prefix}rules* terlebih dahulu ya~`
+exports.registered = (name, userId, time, serial) => {
+    return `*「 REGISTRATION 」*\n\nAkun kamu telah terdaftar dengan data:\n\n➸*Nama*: ${name}\n➸*ID*: ${userId}\n➸ *Waktu pendaftaran*: ${time}\n➸ *Serial*: ${serial}\n\nCatatan:\nJangan pernah menyebarkan data *serial* ke pada siapapun!\n\nKetik *${prefix}rules* terlebih dahulu ya~`
 }
 
 exports.registeredAlready = () => {
@@ -262,8 +262,8 @@ exports.pc = (pushname) => {
     return `*「 REGISTRATION 」*\n\nAkun kamu berhasil terdaftar! Silakan cek pesan ku di private chat mu ya ${pushname}~ :3\n\nNote:\nJika kamu tidak menerima pesan, artinya kamu belum save nomor bot.`
 }
 
-exports.registeredFound = (name, age, time, serial, userId) => {
-    return `*「 REGISTERED 」*\n\nAkun ditemukan!\n\n➸ *Nama*: ${name}\n➸ *Umur*: ${age}\n➸ *ID*: ${userId}\n➸ *Waktu pendaftaran*: ${time}\n➸ *Serial*: ${serial}`
+exports.registeredFound = (name, time, serial, userId) => {
+    return `*「 REGISTERED 」*\n\nAkun ditemukan!\n\n➸ *Nama*: ${name}\n➸n➸ *ID*: ${userId}\n➸ *Waktu pendaftaran*: ${time}\n➸ *Serial*: ${serial}`
 }
 
 exports.registeredNotFound = (serial) => {
